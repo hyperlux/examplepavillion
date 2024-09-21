@@ -1,11 +1,4 @@
 {
   "name": "Welcome",
-  "path": "welcome",
-  "menu": "landing",
-  "theme": "FKB Pro Custom",
-  "groups": [],
-  "assets": [
-    "welcome",
-    "contact"
-  ]
+  "path": "welcome"
 }
