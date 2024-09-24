@@ -1,53 +1,33 @@
-<div class="landing page">  
-  <div class="container">
-    <div class="title-container">
-      <% if !mobile_view? && @welcome.present? %>
-        <div class="lottie title welcome"></div>
-      <% else %>
-        <h1>Welcome to Auroville Community Platform!</h1>
+
+<div class="container">
+  <h1>Welcome to Our Website</h1>
+  
+  <p>We're glad you're here! Explore our site to discover amazing content and services.</p>
+  
+  <% if user_signed_in? %>
+    <h2>Hello, <%= current_user.name %>!</h2>
+    <p>It's great to see you again. Check out our latest updates below:</p>
+    <ul>
+      <% @latest_updates.each do |update| %>
+        <li><%= update.title %> - <%= update.date %></li>
       <% end %>
-    </div>
-    <div class="text-container">
-      <div class="secondary-text">
-        Connect, collaborate, and grow with the Auroville community. Explore our platform to discover events, join discussions, and contribute to our shared vision.
+    </ul>
+  <% else %>
+    <h2>New Here?</h2>
+    <p>Sign up now to access exclusive content and features!</p>
+    <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %>
+    <%= link_to "Log In", new_user_session_path, class: "btn btn-secondary" %>
+  <% end %>
+  
+  <div class="featured-content">
+    <h3>Featured Content</h3>
+    <% @featured_items.each do |item| %>
+      <div class="featured-item">
+        <h4><%= item.title %></h4>
+        <p><%= truncate(item.description, length: 100) %></p>
+        <%= link_to "Read More", item_path(item), class: "btn btn-info" %>
       </div>
-      <ul class="platform-features">
-        <li><a href="/events" title="Events">
-          <div class="image events"></div>
-          <span>Events</span>
-        </a></li>
-        <li><a href="/forums" title="Forums">
-          <div class="image forums"></div>
-          <span>Forums</span>
-        </a></li>
-        <li><a href="/projects" title="Projects">
-          <div class="image projects"></div>
-          <span>Projects</span>
-        </a></li>
-        <li><a href="/more" class="more">Explore More</a></li>
-      </ul>
-    </div>
-    <div class="personalization-options">
-      <h2>How would you like to get started?</h2>
-      <div class="options">
-        <a href="/explore" class="btn btn-primary">Explore the Community</a>
-        <a href="/profile" class="btn btn-secondary">Set Up Your Profile</a>
-        <a href="/guide" class="btn btn-secondary">Take a Guided Tour</a>
-      </div>
-    </div>
+    <% end %>
   </div>
 </div>
 
-<% if @welcome.present? %>
-  <script>
-    var title = lottie.loadAnimation({
-      container: document.querySelector(".lottie.welcome"),
-      renderer: 'svg',
-      autoplay: true,
-      loop: false,
-      path: "<%= @welcome.upload.url %>"
-    });
-    title.setSpeed(0.2);
-  </script>
-  
-<% end %>
