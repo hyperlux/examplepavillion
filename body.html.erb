@@ -1,165 +1,151 @@
-<div class="landing page">  
-  <div class="container">
-    <div class="title-container">
-      <% if !mobile_view? && @welcome.present? %>
-        <div class="lottie title welcome"></div>
-      <% else %>
-        <h1>We Build Communities</h1>
-      <% end %>
-    </div>
-    <div class="text-container">
-      <div class="secondary-text">
-        We’re a <a href="/who-we-are">coöperative</a> that <a href="/software">builds software</a> and <a href="/services">provides services</a> for online communities.
-      </div>
-      <ul class="platform-shortlist">
-        <li><a href="https://discourse.org" target="_blank" title="Discourse">
-          <div class="image discourse"></div>
-        </a></li>
-        <li><a href="https://wordpress.org" target="_blank" title="Wordpress">
-          <div class="image wordpress"></div>
-        </a></li>
-        <li><a href="https://auth0.com" target="_blank" title="Auth0">
-          <div class="image auth0"></div>
-        </a></li>
-        <li><a href="https://shopify.com" target="_blank" title="Shopify">
-          <div class="image shopify"></div>
-        </a></li>
-        <li><a href="https://discord.com" target="_blank" title="Discord">
-          <div class="image discord"></div>
-        </a></li>
-        <li><a href="/software" class="more">more</a></li>
-      </ul>
-    </div>
-    <%= render partial: "contact_form", locals: { success_message: "Sent. We'll be in touch shortly." } %>
-  </div>
-</div>
-
-<div class="page first">
-  <div class="container">
-    <div class="scene-container">
-      <div class="lottie scene rossatto large welcomesoftware"></div>
-    </div>
-    <div class="text-container">
-      <div class="primary-text">
-        <span>We build user-friendly software</span>
-      </div>
-      <div class="secondary-text">
-        We build user-friendly open-source software for online communities. We have the largest library of <a href="/discourse">customisations for Discourse</a>, and we're building others for Wordpress, Auth0, Discord, Slack and the <a href="/software#platforms">other platforms</a> we work with.
-      </div>
-    </div>
-    <div class="buttons">
-      <a href="/software" class="btn btn-primary btn-cta">Learn more</a>
-    </div>
-  </div>
-</div>
-
-<div class="page second">
-  <div class="container">
-    <div class="scene-container">
-      <div class="lottie scene rossatto large welcomeservices"></div>
-    </div>
-    <div class="text-container">
-      <div class="primary-text">
-        <span>We provide affordable services</span>
-      </div>
-      <div class="secondary-text">
-        We provide consulting, customisation and support services for community software. <a href="/members">Our members</a> are experts in their fields, and 100% of our service fees go directly to them, which means we can provide professional services at affordable rates.
-      </div>
-    </div>
-    <div class="buttons">
-      <a href="/services" class="btn btn-primary btn-cta">Learn more</a>
-    </div>
-  </div>
-</div>
-
-<div class="page third">
-  <div class="container">
-    <div class="scene-container">
-      <div class="lottie scene rossatto large welcomemembers"></div>
-    </div>
-    <div class="text-container">
-      <div class="primary-text">
-        <span>We empower freelancers</span>
-      </div>
-      <div class="secondary-text">
-        We're a non-profit focused on providing reliable work, support and education for freelancers, <a href="/members">our members</a>. Our members work on engaging open source projects that directly support their livelihood, pay no membership fees, and keep every dollar they earn.
-      </div>
-    </div>
-    <div class="buttons">
-      <a href="/who-we-are" class="btn btn-primary btn-cta">Learn more</a>
-    </div>
-  </div>
-</div>
-
-<div class="page contact">
-  <div class="container">
-    <div class="title-container">
-      <% if !mobile_view? && @contact %>
-        <div class="lottie contact"></div>
-      <% else %>
-        <h1>Talk to Us</h1>
-      <% end %>
-    </div>
-    <%= render partial: "contact_form" %>
-  </div>
-</div>
-
-<% if @welcome.present? %>
-  <script>
-    var title = lottie.loadAnimation({
-      container: document.querySelector(".lottie.welcome"),
-      renderer: 'svg',
-      autoplay: true,
-      loop: false,
-      path: "<%= @welcome.upload.url %>"
-    });
-    title.setSpeed(0.2);
-  </script>
-<% end %>
-
-<script>
-  setTimeout(() => {
-    lottie.loadAnimation({
-      container: document.querySelector(".lottie.welcomesoftware"),
-      renderer: 'svg',
-      autoplay: true,
-      loop: true,
-      path: "https://pavilion-assets.nyc3.digitaloceanspaces.com/landing/lottie/welcomesoftware.json"
-    });
-  }, 50);
+<body>
+<div class="contents">
+      <!---->
+          
+    <span class="header-sidebar-toggle">
+      <button title="Sidebar" class="btn btn-flat btn-sidebar-toggle no-text btn-icon narrow-desktop" aria-expanded="false" aria-controls="d-sidebar">
+        <svg class="fa d-icon d-icon-bars svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#bars"></use></svg>
+      </button>
+    </span>
   
-  setTimeout(() => {
-    lottie.loadAnimation({
-      container: document.querySelector(".lottie.welcomeservices"),
-      renderer: 'svg',
-      autoplay: true,
-      loop: true,
-      path: "https://pavilion-assets.nyc3.digitaloceanspaces.com/landing/lottie/welcomeservices.json"
-    });
-  }, 100);
-  
-  setTimeout(() => {
-    lottie.loadAnimation({
-      container: document.querySelector(".lottie.welcomemembers"),
-      renderer: 'svg',
-      autoplay: true,
-      loop: true,
-      path: "https://pavilion-assets.nyc3.digitaloceanspaces.com/landing/lottie/welcomemembers.json"
-    });
-  }, 150);
-</script>
 
-<% if @contact.present? %>
-  <script>
-    setTimeout(() => {
-      var contact = lottie.loadAnimation({
-        container: document.querySelector(".lottie.contact"),
-        renderer: 'svg',
-        autoplay: true,
-        loop: false,
-        path: "<%= @contact.upload.url %>"
-      });
-      contact.setSpeed(0.2);
-    }, 200);
-  </script>
-<% end %>
+      <div class="home-logo-wrapper-outlet">
+        <!---->
+      
+          
+    
+      <div class="title">
+        <a href="/">
+          
+            
+    
+    <picture>
+      <source srcset="https://aurovillenetwork.org/uploads/default/original/1X/99e32f00cb6f0520758dd2efd953b3628be0efe3.png" media="(prefers-color-scheme: dark)">
+      <img id="site-logo" class="logo-big" src="https://aurovillenetwork.org/uploads/default/original/1X/0d62d421d6367de3b68b8ba705742cb21d604daa.png" alt="Auroville Community">
+    </picture>
+
+
+          
+        </a>
+      </div>
+    
+  
+        
+  <!---->
+      </div>
+
+<!---->
+      <div class="before-header-panel-outlet">
+        <!---->  
+  <div class="floating-search-input-wrapper">
+    <div class="floating-search-input">
+      <div class="search-banner">
+        <div class="search-banner-inner wrap">
+          <div class="search-menu">
+            
+    
+    <a href="/search?expanded=true" class="btn no-text btn-icon btn search-icon" title="Open advanced search">
+<svg class="fa d-icon d-icon-search svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#magnifying-glass"></use></svg>      ​
+
+    </a>
+  
+  
+            <div class="search-menu-container menu-panel-results">
+  <div class="search-input">
+<!---->
+    <!---->
+
+    <input id="search-term" autocomplete="off" placeholder="Search" aria-label="Search" type="search">
+
+      <div class="searching">
+        <!---->
+<!---->  <!----><!---->
+<!---->        
+    
+          <button class="btn no-text btn-icon show-advanced-search" title="Open advanced search" type="button">
+<svg class="fa d-icon d-icon-sliders svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#sliders"></use></svg>      ​
+
+    </button>
+        
+  
+      </div>
+  </div>
+
+<!----></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!---->
+      </div>
+      <div class="panel" role="navigation">
+          <span class="header-buttons">
+<!---->          </span>
+
+            
+    <ul class="icons d-header-icons">
+          
+    <li class="header-dropdown-toggle chat-header-icon">
+      
+    <a href="/chat" class="btn no-text icon btn-flat" tabindex="0" title="Chat">
+<!----><!----><svg class="fa d-icon d-icon-d-chat svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#comment"></use></svg>          
+<!---->  
+      
+    </a>
+  
+    </li>
+  
+                  
+      <li>
+        
+    
+          <button class="btn no-text btn-icon ai-bot-button icon btn-flat" title="Start a PM with an AI bot" type="button">
+<svg class="fa d-icon d-icon-robot svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#robot"></use></svg>      ​
+
+    </button>
+        
+  
+      </li>
+  
+                    
+    <li class="search-dropdown header-dropdown-toggle">
+      
+    
+          <button class="btn no-text btn-icon icon btn-flat" id="search-button" title="Search" aria-label="Search" aria-haspopup="true" type="button">
+<svg class="fa d-icon d-icon-magnifying-glass svg-icon svg-string" xmlns="http://www.w3.org/2000/svg"><use href="#magnifying-glass"></use></svg>      ​
+
+    </button>
+        
+  
+
+    </li>
+  
+<!---->            
+    <li id="current-user" class="header-dropdown-toggle current-user user-menu-panel">
+      <!---->
+      <button id="toggle-current-user" class="icon btn-flat" aria-haspopup="true" aria-label="Lucas Aurobrindavan's account">
+        
+    <!---->
+    <img loading="lazy" alt="" width="48" height="48" src="/user_avatar/aurovillenetwork.org/lucas/96/23_2.png" class="avatar" title="profile, messages, bookmarks and preferences">
+
+<!---->
+<!---->
+<!---->    <!---->
+  
+      </button>
+      <!---->
+    </li>
+  
+    </ul>
+  
+
+<!---->
+<!---->        </div>
+      <div class="after-header-panel-outlet">
+        <!---->
+      </div>
+      <!---->
+    </div>
+
+</body>
