@@ -1,5 +1,13 @@
 {
   "name": "Welcome",
   "path": "welcome",
-  "theme": "Pavilion Landing Theme"
+  "theme": "Pavilion Landing Theme",
+  "scripts": [
+    {
+      "src": "/assets/plugins/discourse-whos-online-8875bba3ae64075353d97607f04761ae8df94e30e086c7cd1a36a7b6c96d55f3.js",
+      "defer": true,
+      "data-discourse-entrypoint": "plugins/discourse-whos-online",
+      "nonce": "mZX8VHJYe0r3RRZKhNemnl3EU"
+    }
+  ]
 }
