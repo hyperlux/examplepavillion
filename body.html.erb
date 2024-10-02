@@ -1,24 +1,47 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
-      <% topic_list(list_opts: { order: 'date', category: 'announcements', no_definitions: true }, opts: { instance_var: "announcements"}) %>
-      <ul style="list-style-type: none; padding: 0;">
-        <% @announcements.each do |article| %>
-          <li style="display: flex; margin:10px">
-            <a href="<%= article.url %>" class="item" target="_blank">
-              <div class="item-title">
-                <%= short_date(article.created_at) %><br>
-                <%= emoji_codes_to_img(article.fancy_title) %>
-              </div>
-              <% if article.image_url.present? %>
-                <div class="item-image">
-                  <img src="<%= article.image_url %>" />
+    <div class="col-md-4">
+      <div class="box">
+        <h2>Box 1</h2>
+        <p>This is the content for box 1.</p>
+        <p>v</p>
+        <section class="latest-announcements section-box">
+          <h2>Latest Announcements</h2>
+          <div id="announcements-content">
+            <% topic_list(list_opts: { category: 5, per_page: 5 }, opts: { instance_var: "auroville_topics" }) %>
+
+            <% if @auroville_topics.present? %>
+              <% @auroville_topics.each do |topic| %>
+                <div class="topic-item">
+                  <img src="<%= topic.user.avatar_template.gsub('{size}', '40') %>" alt="User Avatar">
+                  <div class="content">
+                    <h3><a href="<%= topic.url %>" target="_blank"><%= emoji_codes_to_img(topic.fancy_title) %></a></h3>
+                    <p><%= short_date(topic.created_at) %> • <%= topic.reply_count %> replies</p>
+                  </div>
                 </div>
               <% end %>
-            </a>
-          </li>
-        <% end %>
-      </ul>
+            <% else %>
+              <p>No recent announcements found.</p>
+            <% end %>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="box">
+        <h2>Box 2</h2>
+        <p>This is the content for box 2.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="box">
+        <h2>Box 3</h2>
+        <p>This is the content for box 3.</p>
+      </div>
     </div>
   </div>
 </div>
+  </div>
+</div>
+
+
