@@ -1,51 +1,30 @@
-<% topic_list(list_opts: { order: 'views', category: 171, definitions_only: true, filter_categories: [171, 129] }, opts: { instance_var: "plugins", group_name: 'members' }) %>
-<% topic_list(list_opts: { order: 'views', category: 129, no_definitions: true }, opts: { instance_var: "themes", group_name: 'members' }) %>
-<% topic_list(list_opts: { order: 'views', category: 195, no_definitions: true }, opts: { instance_var: "discord", group_name: 'members' }) %>
-<% topic_list(list_opts: { order: 'views', category: 198, no_definitions: true }, opts: { instance_var: "auth0", group_name: 'members' }) %>
-<% topic_list(list_opts: { order: 'views', category: 199, no_definitions: true }, opts: { instance_var: "shopify", group_name: 'members' }) %>
-<% topic_list(list_opts: { order: 'views', category: 194, no_definitions: true }, opts: { instance_var: "wordpress", group_name: 'members' }) %>
-
-<div class="landing page">
-  <div id="member-list" class="section anchor-buffer">
-    <div class="title">
-      <h1 title="Our Members">Our Members</h1>
-      <div class="item-list-toggle">
-        <a href="#everyone" class="toggle active" data-group>Everyone</a>
-        <a href="#developers" class="toggle" data-group="developers">Developers</a>
-        <a href="#designers" class="toggle" data-group="designers">Designers</a>
-        <a href="#project-managers" class="toggle" data-group="project-managers">Project Managers</a>
-        <a href="#board" class="toggle" data-group="board">Board</a>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="welcome-banner">
+        <p>Welcome on the new Auroville Community platform! We hope this can become a space for true connection, in a spirit of respect and mutuality.</p>
+        <a href="/learn-more" class="btn-learn-more">Learn more</a>
       </div>
-    </div>
-    <ul class="item-list">
-      <% user_list(group_name: 'members', order: "random() ASC").each do |user| %>
-        <li class="item <%= user.groups.where(name: ['developers', 'designers', 'project_managers', 'board']).map{ |g| g.name.downcase.dasherize }.join(' ') %>">
-          <div class="user-details-container">
-            <%= user_profile(
-              user,
-              avatar_size: 120,
-              show_groups: ['developers', 'designers', 'project_managers', 'board'],
-              add_bio: true,
-              top_extra: "<ul class='user-links'>
-                <li><a class='btn btn-icon' href='#{Discourse.base_url}/new-message?username=#{user.username}'>#{SvgSprite.raw_svg('envelope')}</a></li>
-                <li><a class='btn btn-icon' href='https://github.com/#{user.user_associated_accounts.where("provider_name = 'github'").select("info->'nickname' as nickname").first.try(:nickname)}'>#{SvgSprite.raw_svg('fab-github')}</a></li>
-                <li><a class='btn btn-icon' href='https://meta.discourse.org/u/#{user.user_fields["4"].present? ? user.user_fields["4"] : user.username}'>#{SvgSprite.raw_svg('fab-discourse')}</a></li>
-              </ul>".strip
-            ) %>
-          </div>
-          <div class="user-topic-lists">
-            <% if (@plugins + @themes + @discord + @auth0 + @wordpress + @shopify).select { |t| t.user_id == user.id }.any? %>
-              <div class="user-topic-list">
-                <ul class="user-customisations">
-                  <% (@plugins + @themes + @discord + @auth0 + @wordpress + @shopify).select { |t| t.user_id == user.id }[0..6].each do |t| %>
-                    <li><%= link_to emoji_codes_to_img(t.fancy_title), t.relative_url %></li>
-                  <% end %>
-                </ul>
+      <div class="box big-white-box">
+        <h2>Latest Announcements</h2>
+        <div id="announcements-content">
+          <% topic_list(list_opts: { category: 5, per_page: 5 }, opts: { instance_var: "auroville_topics" }) %>
+
+          <% if @auroville_topics.present? %>
+            <% @auroville_topics.each do |topic| %>
+              <div class="topic-item">
+                <img src="<%= topic.user.avatar_template.gsub('{size}', '40') %>" alt="User Avatar">
+                <div class="content">
+                  <h3><a href="<%= topic.url %>" target="_blank"><%= emoji_codes_to_img(topic.fancy_title) %></a></h3>
+                  <p><%= short_date(topic.created_at) %> • <%= topic.reply_count %> replies</p>
+                </div>
               </div>
             <% end %>
-          </div>
-        </li>
-      <% end %>
-    </ul>
+          <% else %>
+            <p>No recent announcements found.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
