@@ -1,31 +1,51 @@
-<div class="mysite one" style="border: 1px solid #000;">
-  <div class="standard-height" style="border: 1px solid #000;">
-    <div class="block" style="border: 1px solid #000;">
-      <p>In the whispers of dawn, a poem unfolds, painting the sky with hues of hope. Each verse a brushstroke, each word a color, creating a masterpiece of nature's own design. The poet's heart beats in rhythm with the rising sun, capturing the ephemeral beauty of a new day.</p>
-    </div>
-  </div>
-  <div class="standard-height" style="border: 1px solid #000;">
-    <div class="block" style="border: 1px solid #000;">
-      <div class="block" style="border: 1px solid #000;">
-        <p>Amidst the chaos of life, a poem emerges as a sanctuary of calm. Its lines weave a tapestry of tranquility, each stanza a breath of serenity. The poet's pen dances across the page, crafting an oasis of words where the soul finds respite from the world's clamor.</p>
+<% topic_list(list_opts: { order: 'views', category: 171, definitions_only: true, filter_categories: [171, 129] }, opts: { instance_var: "plugins", group_name: 'members' }) %>
+<% topic_list(list_opts: { order: 'views', category: 129, no_definitions: true }, opts: { instance_var: "themes", group_name: 'members' }) %>
+<% topic_list(list_opts: { order: 'views', category: 195, no_definitions: true }, opts: { instance_var: "discord", group_name: 'members' }) %>
+<% topic_list(list_opts: { order: 'views', category: 198, no_definitions: true }, opts: { instance_var: "auth0", group_name: 'members' }) %>
+<% topic_list(list_opts: { order: 'views', category: 199, no_definitions: true }, opts: { instance_var: "shopify", group_name: 'members' }) %>
+<% topic_list(list_opts: { order: 'views', category: 194, no_definitions: true }, opts: { instance_var: "wordpress", group_name: 'members' }) %>
+
+<div class="landing page">
+  <div id="member-list" class="section anchor-buffer">
+    <div class="title">
+      <h1 title="Our Members">Our Members</h1>
+      <div class="item-list-toggle">
+        <a href="#everyone" class="toggle active" data-group>Everyone</a>
+        <a href="#developers" class="toggle" data-group="developers">Developers</a>
+        <a href="#designers" class="toggle" data-group="designers">Designers</a>
+        <a href="#project-managers" class="toggle" data-group="project-managers">Project Managers</a>
+        <a href="#board" class="toggle" data-group="board">Board</a>
       </div>
     </div>
-  </div>
-  <div class="standard-height" style="border: 1px solid #000;">
-    <div class="block" style="border: 1px solid #000;">
-      <div class="block" style="border: 1px solid #000;">
-        <p>Love, in all its complexity, finds expression in the delicate verses of a sonnet. The poet's heart pours onto the page, each line a testament to the power of emotion. Through metaphor and rhythm, the essence of passion is distilled, creating a timeless ode to the human experience of love.</p>
-      </div>
-    </div>
-  </div>
-  <div class="standard-height" style="border: 1px solid #000;">
-    <div class="block" style="border: 1px solid #000;">
-      <p>In the depths of night, a poem whispers of dreams and desires. Its verses are a constellation of hopes, each word a star guiding the reader through the darkness. The poet becomes a navigator of the subconscious, charting a course through the vast ocean of human aspiration.</p>
-    </div>
-  </div>
-  <div class="standard-height" style="border: 1px solid #000;">
-    <div class="block" style="border: 1px solid #000;">
-      <p>Nature's symphony finds its voice in the lilting lines of a pastoral poem. Each verse captures the essence of the wild, from the gentle rustle of leaves to the thunderous roar of waterfalls. The poet becomes a conduit for the earth's beauty, translating its wonders into the language of humanity.</p>
-    </div>
+    <ul class="item-list">
+      <% user_list(group_name: 'members', order: "random() ASC").each do |user| %>
+        <li class="item <%= user.groups.where(name: ['developers', 'designers', 'project_managers', 'board']).map{ |g| g.name.downcase.dasherize }.join(' ') %>">
+          <div class="user-details-container">
+            <%= user_profile(
+              user,
+              avatar_size: 120,
+              show_groups: ['developers', 'designers', 'project_managers', 'board'],
+              add_bio: true,
+              top_extra: "<ul class='user-links'>
+                <li><a class='btn btn-icon' href='#{Discourse.base_url}/new-message?username=#{user.username}'>#{SvgSprite.raw_svg('envelope')}</a></li>
+                <li><a class='btn btn-icon' href='https://github.com/#{user.user_associated_accounts.where("provider_name = 'github'").select("info->'nickname' as nickname").first.try(:nickname)}'>#{SvgSprite.raw_svg('fab-github')}</a></li>
+                <li><a class='btn btn-icon' href='https://meta.discourse.org/u/#{user.user_fields["4"].present? ? user.user_fields["4"] : user.username}'>#{SvgSprite.raw_svg('fab-discourse')}</a></li>
+              </ul>".strip
+            ) %>
+          </div>
+          <div class="user-topic-lists">
+            <% if (@plugins + @themes + @discord + @auth0 + @wordpress + @shopify).select { |t| t.user_id == user.id }.any? %>
+              <div class="user-topic-list">
+                <ul class="user-customisations">
+                  <% (@plugins + @themes + @discord + @auth0 + @wordpress + @shopify).select { |t| t.user_id == user.id }[0..6].each do |t| %>
+                    <li><%= link_to emoji_codes_to_img(t.fancy_title), t.relative_url %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>
