@@ -3,21 +3,28 @@
     <div class="col-md-4">
       <div class="box">
         <h2>Box 1</h2>
-        <% topic_list(list_opts: { category: 5, per_page: 5 }, opts: { instance_var: "auroville_topics" }) %>
-        <% if @auroville_topics.present? %>
-          <% @auroville_topics.each do |topic| %>
-            <div class="topic-item">
-              <img src="<%= topic.user.avatar_template.gsub('{size}', '40') %>" alt="User Avatar">
-              <div class="content">
-                <h3><a href="<%= topic.url %>" target="_blank"><%= emoji_codes_to_img(topic.fancy_title) %></a></h3>
-                <p><%= short_date(topic.created_at) %> • <%= topic.reply_count %> replies</p>
-              </div>
-            </div>
-          <% end %>
-        <% else %>
-          <p>No recent announcements found.</p>
-        <% end %>
+        <p>This is the content for box 1.</p>
       </div>
+      <section class="latest-announcements section-box">
+        <h2>Latest Announcements</h2>
+        <div id="announcements-content">
+          <% topic_list(list_opts: { category: 5, per_page: 5 }, opts: { instance_var: "auroville_topics" }) %>
+
+          <% if @auroville_topics.present? %>
+            <% @auroville_topics.each do |topic| %>
+              <div class="topic-item">
+                <img src="<%= topic.user.avatar_template.gsub('{size}', '40') %>" alt="User Avatar">
+                <div class="content">
+                  <h3><a href="<%= topic.url %>" target="_blank"><%= emoji_codes_to_img(topic.fancy_title) %></a></h3>
+                  <p><%= short_date(topic.created_at) %> • <%= topic.reply_count %> replies</p>
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <p>No recent announcements found.</p>
+          <% end %>
+        </div>
+      </section>
     </div>
     <div class="col-md-4">
       <div class="box">
