@@ -1,11 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
-      <div class="box">
-        <h2>Box 1</h2>
-        <p>This is the content for box 1.</p>
-      </div>
-      <section class="latest-announcements section-box">
+    <div class="col-md-12">
+      <div class="box big-white-box">
         <h2>Latest Announcements</h2>
         <div id="announcements-content">
           <% topic_list(list_opts: { category: 5, per_page: 5 }, opts: { instance_var: "auroville_topics" }) %>
@@ -24,21 +20,7 @@
             <p>No recent announcements found.</p>
           <% end %>
         </div>
-      </section>
-    </div>
-    <div class="col-md-4">
-      <div class="box">
-        <h2>Box 2</h2>
-        <p>This is the content for box 2.</p>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="box">
-        <h2>Box 3</h2>
-        <p>This is the content for box 3.</p>
       </div>
     </div>
   </div>
 </div>
-
-
